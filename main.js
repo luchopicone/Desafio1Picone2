@@ -1,6 +1,6 @@
 function calcularPrecio(producto,precio){
     let precioTotal = 0;
-    return precioTotal += producto * precio;
+    return precioTotal = producto * precio;
 }
 
 function comprar(){
@@ -9,11 +9,12 @@ function comprar(){
     let cantidad =0;
     let precio = 0;
     let seguirComprando = false;
+    let total = 0;
 
     do{
         producto = prompt("Querés comprar Teclado, Raton, Microfono, Monitor, o todo?").toUpperCase();
         console.log(producto);
-        cantidad = parseInt(prompt("Cuántos queres comprar?"));
+        cantidad = parseInt(prompt("Cuántos querés comprar?"));
 
         switch(producto){
             case "TECLADO" :
@@ -34,18 +35,18 @@ function comprar(){
                 break;
 
             default :
-                alert("Ningun producrto fue seleccionado, intente nuevamente");
+                alert("Ningun producto fue seleccionado, intente nuevamente");
                 precio = 0;
                 cantidad = 0;
         }
 
-        calcularPrecio(precio,cantidad);
+        total += calcularPrecio(cantidad,precio);
 
         seguirComprando = confirm("¿Querés agregar otro/s productos?");
 
     }while(seguirComprando);
 
-    alert("El precio total es de: " + precioTotal);
+    alert("El total de tu compra es de: $" + total);
 
     let FinCompra = confirm("¿Desea finalizar su compra?");
 
