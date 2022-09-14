@@ -1,7 +1,38 @@
-function calcularPrecio(producto,precio){
-    let precioTotal = 0;
-    return precioTotal = producto * precio;
+function precioTotal(){
+    let total = carrito.reduce((acc,prdct)=>acc + prdct.precio * prdct.cantidad,0)
+    alert(`El total de tu compra es de $${total}`)
 }
+
+function mostrarProductos(){
+    const verProductos = carrito.map(elementos=>`${elementos.cantidad} ${elementos.nombre} $${elementos.totalPrecio()}\n`)
+    alert("Su carrito contiene: \n" + verProductos.join(''))
+}
+
+function elegirProducto(eleccion){
+    perifericos[eleccion].cantidad = prompt("Cuántos querés comprar?");
+    carrito.push(perifericos[eleccion])
+    console.log(carrito)
+}
+
+class Producto{
+    constructor(nombre,precio,cantidad){
+        this.nombre = nombre,
+        this.precio = precio,
+        this.cantidad = parseInt(cantidad)
+    }
+    totalPrecio(){
+        return this.precio * this.cantidad
+    }
+}
+
+const perifericos =[
+    new Producto("Teclado", 8200,""),
+    new Producto("Raton", 5500,""),
+    new Producto("Microfono", 10300,""),
+    new Producto("Monitor", 39400,""),
+]
+
+const carrito = []
 
 function comprar(){
 
@@ -13,25 +44,23 @@ function comprar(){
 
     do{
         producto = prompt("Querés comprar Teclado, Raton, Microfono, Monitor, o todo?").toUpperCase();
-        console.log(producto);
-        cantidad = parseInt(prompt("Cuántos querés comprar?"));
 
         switch(producto){
             case "TECLADO" :
-                precio = 8200;
+                elegirProducto(0)
                 break;
 
             case "RATON" :
-                precio = 5500;
+                elegirProducto(1)
                 break;
 
             case "MICROFONO" :
-                precio = 10300;
+                elegirProducto(2)
                 break;
 
 
             case "MONITOR" :
-                precio = 39400;
+                elegirProducto(3)
                 break;
 
             default :
@@ -40,17 +69,13 @@ function comprar(){
                 cantidad = 0;
         }
 
-        total += calcularPrecio(cantidad,precio);
-
         seguirComprando = confirm("¿Querés agregar otro/s productos?");
 
     }while(seguirComprando);
 
-    alert("El total de tu compra es de: $" + total);
+    mostrarProductos()
 
-    let FinCompra = confirm("¿Desea finalizar su compra?");
-
-    if(FinCompra) alert("Su compra fue realizada con exito");
+    precioTotal()
 }
 
 comprar();
